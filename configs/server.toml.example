@@ -1,0 +1,5 @@
+addr = ":8080"
+
+[store]
+redis_url = "redis:6379"
+password = "PASSWORD_FROM_REDIS.CONF"

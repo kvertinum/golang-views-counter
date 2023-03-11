@@ -1,0 +1,28 @@
+version: '3'
+services:
+  server:
+      build: "."
+      restart: always
+      working_dir: /app
+      depends_on:
+        - redis
+      ports:
+      - "8080:8080"
+      volumes:
+      - .:/app
+
+  nginx:
+    build: "./nginx"
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+
+  redis:
+    image: redis:latest
+    command: ["redis-server", "/etc/redis/redis.conf"]
+    ports:
+      - "6380:6379"
+    volumes:
+      - ./docker/redis/data:/data
+      - ./redis/redis.conf:/etc/redis/redis.conf
